@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflox - Vidéos</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Vidéos disponibles</h1>
+  <ul>
+    <% videos.forEach(video => { %>
+      <li>
+        <a href="/player/<%= video %>"><%= video %></a>
+      </li>
+    <% }); %>
+  </ul>
+  <a href="/">Retour à l'upload</a>
+</body>
+</html>

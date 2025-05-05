@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecteur Netflox</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Lecteur vidéo</h1>
+  <video controls width="600">
+    <source src="/uploads/<%= videoFile %>" type="video/mp4">
+    Votre navigateur ne supporte pas la lecture vidéo.
+  </video>
+  <br>
+  <a href="/videos">Retour à la liste</a>
+</body>
+</html>
