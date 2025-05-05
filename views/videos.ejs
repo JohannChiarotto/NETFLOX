@@ -3,10 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netflox - Vidéos</title>
+  <title>Netflox</title>
+  <link rel="icon" href="assets/N_logo.png" type="image/x-icon">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <nav class="navbar">
+    <div class="left-section">
+        <a href="http://localhost:3000/"><img src="assets/Netflox_logo.png" alt="NETFLOX" class="logo"></a>
+        <div class="nav-links">
+            <a href="http://localhost:3000/" class="nav-item">Accueil</a>
+            <a href="http://localhost:3000/videos" class="nav-item">Vidéos</a>
+        </div>
+    </div>
+  </nav>
+
   <h1>Vidéos disponibles</h1>
   <ul>
     <% videos.forEach(video => { %>
