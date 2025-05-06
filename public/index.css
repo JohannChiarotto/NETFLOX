@@ -130,7 +130,7 @@ button:hover {
 
 .recent-videos-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -159,7 +159,11 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    padding: 20px 0;
+    padding: 15px;
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 1.1rem;
 }
 
 .video-card {
@@ -202,4 +206,40 @@ button:hover {
 .video-card a {
     text-decoration: none;
     color: inherit;
+}
+
+.logo-link {
+    display: inline-block;
+}
+
+.logo {
+    height: 60px;
+    margin-left: 50px;
+}
+
+.mobile-logo {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-logo {
+        display: none;
+    }
+    
+    .mobile-logo {
+        display: block;
+    }
+    
+    .logo {
+        margin-left: 20px;
+    }
+    
+    .nav-links {
+        margin-left: 30px;
+    }
+    
+    .nav-item {
+        font-size: 18px;
+        margin-right: 20px;
+    }
 }

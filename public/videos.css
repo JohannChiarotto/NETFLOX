@@ -188,3 +188,40 @@ body {
 .button-container {
     text-align: center;
 }
+
+
+.logo-link {
+    display: inline-block;
+}
+
+.logo {
+    height: 60px;
+    margin-left: 50px;
+}
+
+.mobile-logo {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-logo {
+        display: none;
+    }
+    
+    .mobile-logo {
+        display: block;
+    }
+    
+    .logo {
+        margin-left: 20px;
+    }
+    
+    .nav-links {
+        margin-left: 30px;
+    }
+    
+    .nav-item {
+        font-size: 18px;
+        margin-right: 20px;
+    }
+}
