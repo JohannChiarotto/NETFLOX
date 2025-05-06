@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Netflox</title>
   <link rel="icon" href="assets/N_logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style3.css">
 </head>
 <body>
   <nav class="navbar">
     <div class="left-section">
-        <a href="http://localhost:3000/"><img src="assets/Netflox_logo.png" alt="NETFLOX" class="logo"></a>
+        <a href="http://localhost:3000/"><img src="http://localhost:3000/assets/Netflox_logo.png" alt="NETFLOX" class="logo"></a>
         <div class="nav-links">
             <a href="http://localhost:3000/" class="nav-item">Accueil</a>
             <a href="http://localhost:3000/videos" class="nav-item">Vidéos</a>
@@ -18,14 +18,83 @@
     </div>
   </nav>
 
-  <h1>Vidéos disponibles</h1>
-  <ul>
-    <% videos.forEach(video => { %>
-      <li>
-        <a href="/player/<%= video %>"><%= video %></a>
-      </li>
-    <% }); %>
-  </ul>
-  <a href="/">Retour à l'upload</a>
+  <div class="videos-container">
+    <h1 class="videos-title">Vidéos disponibles</h1>
+    <div class="videos-grid">
+      <% videos.forEach(video => { %>
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <a href="/player/<%= video %>">
+              <video>
+                <source src="/uploads/<%= video %>" type="video/mp4">
+              </video>
+            </a>
+          </div>
+          <div class="video-info">
+            <h2 class="video-title"><%= video.replace('.mp4', '') %></h2>
+            <div class="video-actions">
+              <button class="action-button rename-button" onclick="renameVideo('<%= video %>')">
+                ✏️
+              </button>
+              <button class="action-button delete-button" onclick="deleteVideo('<%= video %>')">
+                🗑️
+              </button>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    <div class="button-container">
+      <a href="/" class="back-button">Retour à l'upload</a>
+    </div>
+  </div>
+
+  <script>
+    function renameVideo(oldName) {
+      const newName = prompt('Entrez le nouveau nom de la vidéo:', oldName.replace('.mp4', ''));
+      if (newName && newName !== oldName.replace('.mp4', '')) {
+        fetch('/rename-video', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            oldName: oldName,
+            newName: newName + '.mp4'
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload();
+          } else {
+            alert('Erreur lors du renommage de la vidéo');
+          }
+        });
+      }
+    }
+
+    function deleteVideo(videoName) {
+      if (confirm('Êtes-vous sûr de vouloir supprimer cette vidéo ?')) {
+        fetch('/delete-video', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            videoName: videoName
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload();
+          } else {
+            alert('Erreur lors de la suppression de la vidéo');
+          }
+        });
+      }
+    }
+  </script>
 </body>
 </html>

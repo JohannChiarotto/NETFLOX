@@ -4,15 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lecteur Netflox</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style2.css">
 </head>
 <body>
-  <h1>Lecteur vidéo</h1>
-  <video controls width="600">
-    <source src="/uploads/<%= videoFile %>" type="video/mp4">
-    Votre navigateur ne supporte pas la lecture vidéo.
-  </video>
-  <br>
-  <a href="/videos">Retour à la liste</a>
+  <nav class="navbar">
+    <div class="left-section">
+        <a href="http://localhost:3000/"><img src="http://localhost:3000/assets/Netflox_logo.png" alt="NETFLOX" class="logo"></a>
+        <div class="nav-links">
+            <a href="http://localhost:3000/" class="nav-item">Accueil</a>
+            <a href="http://localhost:3000/videos" class="nav-item">Vidéos</a>
+        </div>
+    </div>
+  </nav>
+
+  <div class="player-container">
+    <h1 class="video-title"><%= videoFile.replace('.mp4', '') %></h1>
+    <video controls>
+      <source src="/uploads/<%= videoFile %>" type="video/mp4">
+      Votre navigateur ne supporte pas la lecture vidéo.
+    </video>
+    <a href="/videos" class="back-button">Retour à la liste</a>
+  </div>
 </body>
 </html>
