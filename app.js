@@ -4,6 +4,9 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
+// Variable pour stocker les vidéos de la session en cours
+let sessionVideos = [];
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -17,10 +20,23 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => {
+    res.render('index', { videos: sessionVideos });
+});
 
 app.post('/upload', upload.single('videoFile'), (req, res) => {
-    res.redirect('/videos');
+    if (req.file) {
+        sessionVideos.push(req.file.originalname);
+    }
+    res.redirect('/');
+});
+
+// Réinitialiser les vidéos de session quand on quitte la page d'accueil
+app.use((req, res, next) => {
+    if (req.path !== '/') {
+        sessionVideos = [];
+    }
+    next();
 });
 
 app.get('/videos', (req, res) => {

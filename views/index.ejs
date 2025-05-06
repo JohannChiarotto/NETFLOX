@@ -25,6 +25,28 @@
             <input type="file" name="videoFile" accept="video/*" required>
             <button type="submit">Upload</button>
         </form>
+
+        <% if (videos && videos.length > 0) { %>
+            <div class="recent-videos">
+                <div class="recent-videos-header">
+                    <h2>Vidéos récemment ajoutées</h2>
+                </div>
+                <div class="video-grid">
+                    <% videos.forEach(video => { %>
+                        <div class="video-card">
+                            <a href="/player/<%= video %>">
+                                <div class="video-thumbnail">
+                                    <video>
+                                        <source src="/uploads/<%= video %>" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="video-title"><%= video %></div>
+                            </a>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
     </div>
 </body>
 </html>
