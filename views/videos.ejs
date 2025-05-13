@@ -17,9 +17,10 @@
         <div class="nav-links">
             <a href="http://localhost:3000/" class="nav-item">Accueil</a>
             <a href="http://localhost:3000/videos" class="nav-item">Vidéos</a>
+            <a href="http://localhost:3000/favorites" class="nav-item">Favoris</a>
         </div>
     </div>
-</nav>
+  </nav>
 
   <div class="videos-container">
     <h1 class="videos-title">Vidéos disponibles</h1>
@@ -27,6 +28,10 @@
       <% videos.forEach(video => { %>
         <div class="video-card">
           <div class="video-thumbnail">
+            <button class="favorite-star <%= favoriteVideos.includes(video) ? 'favorited' : '' %>" 
+                    onclick="toggleFavorite('<%= video %>')">
+              ★
+            </button>
             <a href="/player/<%= video %>">
               <video>
                 <source src="/uploads/<%= video %>" type="video/mp4">
@@ -53,6 +58,26 @@
   </div>
 
   <script>
+    function toggleFavorite(videoName) {
+      fetch('/toggle-favorite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          videoName: videoName
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          alert('Erreur lors de la mise à jour des favoris');
+        }
+      });
+    }
+
     function renameVideo(oldName) {
       const newName = prompt('Entrez le nouveau nom de la vidéo:', oldName.replace('.mp4', ''));
       if (newName && newName !== oldName.replace('.mp4', '')) {

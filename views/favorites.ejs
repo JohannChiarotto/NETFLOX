@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflox</title>
+    <link rel="icon" href="assets/N_logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/videos.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-section">
+            <a href="http://localhost:3000/" class="logo-link">
+                <img src="assets/Netflox_logo.png" alt="NETFLOX" class="logo desktop-logo">
+                <img src="assets/N_logo.png" alt="NETFLOX" class="logo mobile-logo">
+            </a>
+            <div class="nav-links">
+                <a href="http://localhost:3000/" class="nav-item">Accueil</a>
+                <a href="http://localhost:3000/videos" class="nav-item">Vidéos</a>
+                <a href="http://localhost:3000/favorites" class="nav-item">Favoris</a>
+            </div>
+        </div>
+      </nav>
+
+  <div class="videos-container">
+    <h1 class="videos-title">Vidéos Favorites</h1>
+    <div class="videos-grid">
+      <% favoriteVideos.forEach(video => { %>
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <button class="favorite-star favorited" onclick="toggleFavorite('<%= video %>')">
+              ★
+            </button>
+            <a href="/player/<%= video %>">
+              <video>
+                <source src="/uploads/<%= video %>" type="video/mp4">
+              </video>
+            </a>
+          </div>
+          <div class="video-info">
+            <h2 class="video-title"><%= video.replace('.mp4', '') %></h2>
+            <div class="video-actions">
+              <button class="action-button rename-button" onclick="renameVideo('<%= video %>')">
+                ✏️
+              </button>
+              <button class="action-button delete-button" onclick="deleteVideo('<%= video %>')">
+                🗑️
+              </button>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    <div class="button-container">
+      <a href="/videos" class="back-button">Retour à toutes les vidéos</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleFavorite(videoName) {
+      fetch('/toggle-favorite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          videoName: videoName
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          alert('Erreur lors de la mise à jour des favoris');
+        }
+      });
+    }
+
+    function renameVideo(oldName) {
+      const newName = prompt('Entrez le nouveau nom de la vidéo:', oldName.replace('.mp4', ''));
+      if (newName && newName !== oldName.replace('.mp4', '')) {
+        fetch('/rename-video', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            oldName: oldName,
+            newName: newName + '.mp4'
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload();
+          } else {
+            alert('Erreur lors du renommage de la vidéo');
+          }
+        });
+      }
+    }
+
+    function deleteVideo(videoName) {
+      if (confirm('Êtes-vous sûr de vouloir supprimer cette vidéo ?')) {
+        fetch('/delete-video', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            videoName: videoName
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload();
+          } else {
+            alert('Erreur lors de la suppression de la vidéo');
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>
