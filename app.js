@@ -56,10 +56,8 @@ app.get('/videos', (req, res) => {
 app.get('/favorites', (req, res) => {
     const allVideos = fs.readdirSync('uploads/');
     const favoriteVideos = allVideos.filter(video => favorites.includes(video));
-    res.render('videos', {
-        videos: favoriteVideos,
-        favoriteVideos: favorites,
-        isFavoritesPage: true
+    res.render('favorites', {
+        favoriteVideos: favoriteVideos
     });
 });
 

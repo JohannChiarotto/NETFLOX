@@ -1,0 +1,259 @@
+body {
+    background-color: rgb(10, 10, 10);
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-family: 'Netflix Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 20px;
+    padding-top: 65px;
+    min-height: 100vh;
+}
+
+@font-face {
+    font-family: 'Netflix Sans';
+    src: url('https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Md.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0);
+    padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 99;
+    border-bottom: 1px solid #333;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 60px;
+    margin-left: 50px;
+}
+
+.nav-links {
+    display: flex;
+    margin-left: 100px;
+}
+
+.nav-item {
+    color: #e5e5e5;
+    text-decoration: none;
+    margin-right: 45px;
+    font-size: 24px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-item:hover {
+    color: #747171;
+}
+
+.videos-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.videos-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #e5e5e5;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.video-card {
+    background-color: rgba(20, 20, 20, 0.7);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+.video-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* Ratio 16:9 */
+    background-color: #141414;
+    overflow: hidden;
+}
+
+.video-thumbnail video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-info {
+    padding: 15px;
+}
+
+.video-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #e5e5e5;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.video-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.action-button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.rename-button {
+    background-color: #525252;
+    color: white;
+}
+
+.rename-button:hover {
+    background-color: #383939;
+}
+
+.delete-button {
+    background-color: #E50914;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #ae0911;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: #e50914;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+    margin-top: 30px;
+}
+
+.back-button:hover {
+    background-color: #f40612;
+}
+
+.button-container {
+    text-align: center;
+}
+
+
+.logo-link {
+    display: inline-block;
+}
+
+.logo {
+    height: 60px;
+    margin-left: 50px;
+}
+
+.mobile-logo {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-logo {
+        display: none;
+    }
+    
+    .mobile-logo {
+        display: block;
+    }
+    
+    .logo {
+        margin-left: 20px;
+    }
+    
+    .nav-links {
+        margin-left: 30px;
+    }
+    
+    .nav-item {
+        font-size: 18px;
+        margin-right: 20px;
+    }
+}
+
+.favorite-star {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    transition: all 0.2s ease;
+  }
+  
+  .favorite-star.favorited {
+    color: gold;
+    background: rgba(0, 0, 0, 0.7);
+    text-shadow: 0 0 4px rgba(255, 215, 0, 0.7);
+  }
+  
+  .favorite-star:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.7);
+  }
