@@ -262,16 +262,19 @@ video {
 }
 
 .logo {
+    margin-top: 10px;
     height: 60px;
     margin-left: 50px;
 }
 
 .mobile-logo {
+    margin-top:0px;
     display: none;
 }
 
 @media (max-width: 768px) {
     .desktop-logo {
+        margin-top: 10px;
         display: none;
     }
     
