@@ -272,7 +272,7 @@ video {
     display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .desktop-logo {
         margin-top: 10px;
         display: none;
