@@ -30,10 +30,10 @@ body {
 
 h1 {
     text-align: center;
-    font-weight: 700; /* Gras comme Netflix */
-    font-size: 3.5rem; /* Taille similaire aux titres Netflix */
+    font-weight: 700; 
+    font-size: 3.5rem;
     margin-bottom: 20px;
-    letter-spacing: -0.5px; /* Espacement des lettres légèrement resserré */
+    letter-spacing: -0.5px;
 }
 
 .navbar {
@@ -179,7 +179,7 @@ button:hover {
 .video-thumbnail {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* Ratio 16:9 */
+    padding-top: 56.25%; 
     background-color: #141414;
     border-radius: 4px;
     overflow: hidden;

@@ -101,7 +101,7 @@ body {
 .video-thumbnail {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* Ratio 16:9 */
+    padding-top: 56.25%;
     background-color: #141414;
     overflow: hidden;
 }
