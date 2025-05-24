@@ -38,14 +38,22 @@
                 <div class="video-grid">
                     <% videos.forEach(video => { %>
                         <div class="video-card">
-                            <a href="/player/<%= video %>">
-                                <div class="video-thumbnail">
-                                    <video>
-                                        <source src="/uploads/<%= video %>" type="video/mp4">
-                                    </video>
-                                </div>
+                            <div class="video-thumbnail">
+                                <video>
+                                    <source src="/uploads/<%= video %>" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="video-info">
                                 <div class="video-title"><%= video %></div>
-                            </a>
+                                <div class="video-actions">
+                                    <button class="action-button rename-button" onclick="renameVideo('<%= video %>')">
+                                        ✏️
+                                    </button>
+                                    <button class="action-button delete-button" onclick="deleteVideo('<%= video %>')">
+                                        🗑️
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     <% }); %>
                 </div>
@@ -53,4 +61,51 @@
         <% } %>
     </div>
 </body>
+<script>
+    function renameVideo(oldName) {
+        const newName = prompt('Entrez le nouveau nom de la vidéo:', oldName.replace('.mp4', ''));
+        if (newName && newName !== oldName.replace('.mp4', '')) {
+            fetch('/rename-video', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    oldName: oldName,
+                    newName: newName + '.mp4'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert('Erreur lors du renommage de la vidéo');
+                }
+            });
+        }
+    }
+
+    function deleteVideo(videoName) {
+        if (confirm('Êtes-vous sûr de vouloir supprimer cette vidéo ?')) {
+            fetch('/delete-video', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    videoName: videoName
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert('Erreur lors de la suppression de la vidéo');
+                }
+            });
+        }
+    }
+</script>
 </html>
